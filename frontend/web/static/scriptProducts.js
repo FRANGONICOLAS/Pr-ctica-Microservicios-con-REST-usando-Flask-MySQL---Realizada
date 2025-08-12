@@ -1,39 +1,39 @@
-function getUsers() {
-    fetch('http://192.168.60.3:5002/api/users')
+function getProducts() {
+    fetch('http://192.168.60.3:5003/api/products')
         .then(response => response.json())
         .then(data => {
             // Handle data
             console.log(data);
 
             // Get table body
-            var userListBody = document.querySelector('#user-list tbody');
-            userListBody.innerHTML = ''; // Clear previous data
+            var productListBody = document.querySelector('#product-list tbody');
+            productListBody.innerHTML = ''; // Clear previous data
 
-            // Loop through users and populate table rows
-            data.forEach(user => {
+            // Loop through products and populate table rows
+            data.forEach(product => {
                 var row = document.createElement('tr');
 
                 // Name
                 var nameCell = document.createElement('td');
-                nameCell.textContent = user.name;
+                nameCell.textContent = product.product_name;
                 row.appendChild(nameCell);
 
                 // Email
-                var emailCell = document.createElement('td');
-                emailCell.textContent = user.email;
-                row.appendChild(emailCell);
+                var priceCell = document.createElement('td');
+                priceCell.textContent = product.price;
+                row.appendChild(priceCell);
 
                 // Username
-                var usernameCell = document.createElement('td');
-                usernameCell.textContent = user.username;
-                row.appendChild(usernameCell);
+                var originCell = document.createElement('td');
+                originCell.textContent = product.origin;
+                row.appendChild(originCell);
 
                 // Actions
                 var actionsCell = document.createElement('td');
 
                 // Edit link
                 var editLink = document.createElement('a');
-                editLink.href = `/editUser/${user.id}`;
+                editLink.href = `/editProduct/${product.id}`;
 	        //editLink.href = `edit.html?id=${user.id}`;
                 editLink.textContent = 'Edit';
                 editLink.className = 'btn btn-primary mr-2';
@@ -45,27 +45,26 @@ function getUsers() {
                 deleteLink.textContent = 'Delete';
                 deleteLink.className = 'btn btn-danger';
                 deleteLink.addEventListener('click', function() {
-                    deleteUser(user.id);
+                    deleteProduct(product.id);
                 });
                 actionsCell.appendChild(deleteLink);
 
                 row.appendChild(actionsCell);
 
-                userListBody.appendChild(row);
+                productListBody.appendChild(row);
             });
         })
         .catch(error => console.error('Error:', error));
 }
 
-function createUser() {
+function createProduct() {
     var data = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value
+        product_name: document.getElementById('product_name').value,
+        price: document.getElementById('price').value,
+        origin: document.getElementById('origin').value,
     };
 
-    fetch('http://192.168.60.3:5002/api/users', {
+    fetch('http://192.168.60.3:5003/api/products', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -88,16 +87,15 @@ function createUser() {
     });
 }
 
-function updateUser() {
-    var userId = document.getElementById('user-id').value;
+function updateProduct() {
+    var productId = document.getElementById('product-id').value;
     var data = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        username: document.getElementById('username').value,
-        password: document.getElementById('password').value
+        product_name: document.getElementById('product_name').value,
+        price: document.getElementById('price').value,
+        origin: document.getElementById('origin').value,
     };
 
-    fetch(`http://192.168.60.3:5002/api/users/${userId}`, {
+    fetch(`http://192.168.60.3:5003/api/products/${productId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -123,10 +121,10 @@ function updateUser() {
 
 
 
-function deleteUser(userId) {
-    console.log('Deleting user with ID:', userId);
+function deleteProduct(productId) {
+    console.log('Deleting user with ID:', productId);
     if (confirm('Are you sure you want to delete this user?')) {
-        fetch(`http://192.168.60.3:5002/api/users/${userId}`, {
+        fetch(`http://192.168.60.3:5003/api/products/${productId}`, {
             method: 'DELETE',
         })
         .then(response => {
@@ -139,7 +137,7 @@ function deleteUser(userId) {
             // Handle success
             console.log('User deleted successfully:', data);
             // Reload the user list
-            getUsers();
+            getProducts();
         })
         .catch(error => {
             // Handle error

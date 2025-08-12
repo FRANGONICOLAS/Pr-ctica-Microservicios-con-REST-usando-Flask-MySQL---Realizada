@@ -20,6 +20,15 @@ def edit_user(id):
     print("id recibido",id)
     return render_template('editUser.html', id=id)
 
+# Ruta para renderizar el template users.html
+@app.route('/products')
+def products():
+    return render_template('products.html')
+
+@app.route('/editProduct/<string:id>')
+def edit_product(id):
+    print("id recibido",id)
+    return render_template('editProduct.html', id=id)
 
 if __name__ == '__main__':
     app.run()
