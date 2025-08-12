@@ -4,21 +4,32 @@
 
 ```
 vagrant up
-vagrant ssh servidorWeb
+vagrant ssh
+```
+
+## Run in /home/vagrant
+
+```
+consul agent -ui -dev -bind=192.168.60.3 -client=0.0.0.0 -data-dir=.
 ```
 
 ## Run the webApp
 
 ```
 cd /home/vagrant/frontend
-export FLASK_APP=run.py
-/usr/local/bin/flask run --host=0.0.0.0 --port 5001
+python3 run.py
 ```
 
 ## Run the Users Microservice
 
 ```
 cd /home/vagrant/microUsers
-export FLASK_APP=run.py
-/usr/local/bin/flask run --host=0.0.0.0 --port 5002
+python3 run.py
+```
+
+## Run the Products Microservice
+
+```
+cd /home/vagrant/microProducts
+python3 run.py
 ```
