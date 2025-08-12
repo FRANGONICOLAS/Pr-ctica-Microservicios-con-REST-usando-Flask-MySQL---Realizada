@@ -33,3 +33,5 @@ python3 run.py
 cd /home/vagrant/microProducts
 python3 run.py
 ```
+
+## Para ver las funcionalidades ingrese en su buscador 192.168.60.3:8500 aqui se puede visualizar el descubridor de servicios y el estado de cada servicio. Y para las otras funcionalidades 192.168.60.3:5001.
