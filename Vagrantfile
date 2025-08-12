@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define :servidorWeb do |servidorWeb|
     servidorWeb.vm.box = "bento/ubuntu-22.04"
-    servidorWeb.vm.network :private_network, ip: "192.168.80.3"
+    servidorWeb.vm.network :private_network, ip: "192.168.60.3"
     servidorWeb.vm.provision "file", source: "frontend", destination: "/home/vagrant/frontend"
     servidorWeb.vm.provision "file", source: "microUsers", destination: "/home/vagrant/microUsers"
     servidorWeb.vm.provision "file", source: "init.sql", destination: "/home/vagrant/init.sql"
